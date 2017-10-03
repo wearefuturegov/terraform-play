@@ -60,22 +60,6 @@ resource "aws_route_table" "main-public" {
     }
 }
 
-resource "aws_elb" "terraform" {
-  name = "terraform-example-elb"
-
-  subnets = ["${aws_subnet.main-public.id}"]
-  security_groups = ["${aws_security_group.elb.id}"]
-  instances = ["${aws_instance.terraform.id}"]
-
-  listener {
-    instance_port = 80
-    instance_protocol = "http"
-    lb_port = 80
-    lb_protocol = "http"
-  }
-}
-
-
 # route associations public
 resource "aws_route_table_association" "main-public-a" {
     subnet_id = "${aws_subnet.main-public.id}"
