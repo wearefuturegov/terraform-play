@@ -12,7 +12,7 @@ resource "aws_instance" "terraform" {
   subnet_id = "${aws_subnet.main-public-1.id}"
 
   # the security group
-  vpc_security_group_ids = ["${aws_security_group.allow-ssh.id}"]
+  vpc_security_group_ids = ["${module.sg_ssh.security_group_id_ssh}"]
 
   # provisioner "file" {
   #   source = "scripts/yum-update.sh"

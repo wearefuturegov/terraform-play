@@ -15,10 +15,10 @@ resource "aws_db_instance" "postgres" {
   password             = "${var.RDS_PASSWORD}" # password
   db_subnet_group_name = "${aws_db_subnet_group.postgres-subnet.name}"
   multi_az             = "false"     # set to true to have high availability: 2 instances synchronized with each other
-  vpc_security_group_ids = ["${aws_security_group.allow-postgres.id}"]
+  vpc_security_group_ids = ["${module.sg_postgresql.security_group_id_postgresql}"]
   storage_type         = "gp2"
   backup_retention_period = 0    # how long you’re going to keep your backups
-  # disabled till we need it
+  # disabled till we need
   availability_zone = "${aws_subnet.main-private-1.availability_zone}"   # prefered AZ
   tags {
       Name = "postgres-instance"
