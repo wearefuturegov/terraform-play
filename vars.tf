@@ -26,3 +26,5 @@ variable "INSTANCE_USERNAME" {
 variable "INSTANCE_DEVICE_NAME" {
   default = "/dev/xvdh"
 }
+
+variable "RDS_PASSWORD" { }

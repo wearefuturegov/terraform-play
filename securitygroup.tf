@@ -20,6 +20,29 @@ tags {
   }
 }
 
+
+resource "aws_security_group" "allow-postgres" {
+  vpc_id = "${aws_vpc.main.id}"
+  name = "allow-postgres"
+  description = "allow-postgres"
+  ingress {
+      from_port = 3306
+      to_port = 3306
+      protocol = "tcp"
+      security_groups = ["${aws_security_group.allow-ssh.id}"]              # allowing access from our example instance
+  }
+  egress {
+      from_port = 0
+      to_port = 0
+      protocol = "-1"
+      cidr_blocks = ["0.0.0.0/0"]
+      self = true
+  }
+  tags {
+    Name = "allow-postgres"
+  }
+}
+
 module "sg_ssh" {
   source = "github.com/terraform-community-modules/tf_aws_sg//sg_ssh"
   security_group_name = "${var.security_group_name}-ssh"
