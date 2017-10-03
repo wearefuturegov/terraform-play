@@ -14,24 +14,29 @@ resource "aws_instance" "terraform" {
   # the security group
   vpc_security_group_ids = ["${aws_security_group.allow-ssh.id}"]
 
-  provisioner "file" {
-    source = "scripts/yum-update.sh"
-    destination = "/tmp/script.sh"
-  }
+  # provisioner "file" {
+  #   source = "scripts/yum-update.sh"
+  #   destination = "/tmp/script.sh"
+  # }
 
-  provisioner "remote-exec" {
-    inline = [
-      "chmod +x /tmp/script.sh",
-      "sudo /tmp/script.sh"
-    ]
-  }
+  # provisioner "remote-exec" {
+  #   inline = [
+  #     "chmod +x /tmp/script.sh",
+  #     "sudo /tmp/script.sh"
+  #   ]
+  # }
+
   connection {
     user = "${var.INSTANCE_USERNAME}"
     private_key = "${file("${var.PATH_TO_PRIVATE_KEY}")}"
   }
 
+  # provisioner "local-exec" {
+  #   command = "cd ../chef-futuregov && knife solo bootstrap ${aws_instance.web.public_ip} -x centos -N aws1.wearefuturegov.com"
+  # }
+
   # user data
-  user_data = "${data.template_cloudinit_config.cloudinit-example.rendered}"
+  # user_data = "${data.template_cloudinit_config.cloudinit-example.rendered}"
 }
 
 output "ip" {
