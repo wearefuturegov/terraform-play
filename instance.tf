@@ -15,9 +15,10 @@ resource "aws_instance" "terraform" {
   vpc_security_group_ids = ["${aws_security_group.allow-ssh.id}"]
 
   provisioner "file" {
-    source = "scripts/apache.sh"
+    source = "scripts/yum-update.sh"
     destination = "/tmp/script.sh"
   }
+
   provisioner "remote-exec" {
     inline = [
       "chmod +x /tmp/script.sh",
