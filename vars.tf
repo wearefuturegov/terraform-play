@@ -1,5 +1,5 @@
 variable "security_group_name" {
-  default = "terraform"
+  default = "terraform-sg"
 }
 
 variable "AWS_ACCESS_KEY" {}
