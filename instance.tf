@@ -27,7 +27,3 @@ resource "aws_instance" "terraform" {
 output "ip" {
   value = "${aws_instance.terraform.public_ip}"
 }
-
-output "aws_instance" {
-  value = "${aws_instance}"
-}
