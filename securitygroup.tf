@@ -12,13 +12,6 @@ module "sg_postgresql" {
   source_cidr_block = ["0.0.0.0/0"]
 }
 
-# module "sg_web" {
-#  source = "github.com/terraform-community-modules/tf_aws_sg//sg_https_only"
-#  security_group_name = "${var.security_group_name}-https"
-#  vpc_id = "${aws_vpc.main.id}"
-#  source_cidr_block = ["0.0.0.0/0"]
-#}
-
 # A security group for the ELB so it is accessible via the web
 resource "aws_security_group" "elb" {
   name = "terraform_example_elb"
@@ -41,3 +34,11 @@ resource "aws_security_group" "elb" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 }
+
+
+# module "sg_web" {
+#  source = "github.com/terraform-community-modules/tf_aws_sg//sg_https_only"
+#  security_group_name = "${var.security_group_name}-https"
+#  vpc_id = "${aws_vpc.main.id}"
+#  source_cidr_block = ["0.0.0.0/0"]
+#}
