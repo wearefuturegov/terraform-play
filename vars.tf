@@ -23,3 +23,6 @@ variable "PATH_TO_PUBLIC_KEY" {
 variable "INSTANCE_USERNAME" {
   default = "centos"
 }
+variable "INSTANCE_DEVICE_NAME" {
+  default = "/dev/xvdh"
+}

@@ -8,8 +8,14 @@ resource "aws_instance" "terraform" {
   instance_type = "t2.micro"
   key_name = "${aws_key_pair.terraform.key_name}"
 
+  # the VPC subnet
+  subnet_id = "${aws_subnet.main-public.id}"
+
+  # the security group
+  vpc_security_group_ids = ["${aws_security_group.allow-ssh.id}"]
+
   provisioner "file" {
-    source = "script.sh"
+    source = "scripts/apache.sh"
     destination = "/tmp/script.sh"
   }
   provisioner "remote-exec" {
@@ -22,6 +28,9 @@ resource "aws_instance" "terraform" {
     user = "${var.INSTANCE_USERNAME}"
     private_key = "${file("${var.PATH_TO_PRIVATE_KEY}")}"
   }
+
+  # user data
+  user_data = "${data.template_cloudinit_config.cloudinit-example.rendered}"
 }
 
 output "ip" {

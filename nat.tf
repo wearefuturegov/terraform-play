@@ -1,6 +1,8 @@
 # nat gw
 resource "aws_eip" "nat" {
   vpc      = true
+  # TODO add - currently breaks
+  # instance = "${aws_instance.terraform.id}"
 }
 
 resource "aws_nat_gateway" "nat-gw" {
@@ -21,6 +23,7 @@ resource "aws_route_table" "main-private" {
         Name = "main-private"
     }
 }
+
 # route associations private
 resource "aws_route_table_association" "main-private-a" {
     subnet_id = "${aws_subnet.main-private.id}"
